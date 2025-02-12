@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+		<div class="grid-wrap-main">
+			<div></div>
+			<div>
+				<div class="node main" id="main">
+					<h1 style="margin-bottom: 1rem;">EAD DESIGN SYSTEM</h1>
+					<p class="subtitledesc">The reason the game will be enjoyable is because it will cause players to have a sense of ...</p>
+					<div class="node_list" id="main_list"></div>
+					<div class="horizontal_flex">
+						<button class="button button_add" type="button" name="button" onclick="EAD.on_button_add('main')">+</button>
+					</div>
+				</div>
+				<div class="horizontal_flex">
+					<button class="button_saveload" id="button_save" type="button" name="button" onclick="EAD.save()">save</button>
+					<button class="button_saveload" id="button_load" type="button" name="button" onclick="EAD.load()">load</button>
+					<p class="subtitledesc" style="font-size: 1rem; margin-top: 1rem;">Sumianvoice 2025</p>
+				</div>
+				<textarea name="text_load" id="text_load" cols="800" rows="10">
+["$main",["Mastery",["Platforming",["obstacles increase in difficulty as the game progresses"],["the goal is always in a certain direction e.g. right"]]]]
+				</textarea>
+			</div>
+			<div></div>
+		</div>
+		<script src="main.js" charset="utf-8"></script>
+	</body>
+</html>

@@ -1,0 +1,211 @@
+html * {
+	margin: 0;
+	padding: 0;
+	color: #ccc;
+	font-family: arial;
+	touch-action: none;
+}
+b {
+	color: #ddd;
+}
+html {
+	overflow: scroll;
+}
+body {
+	background: #222;
+	background: #222;
+}
+h1, h2, h3, h4 {
+	color: #ffffff88;
+}
+ul {
+	margin-left: 20px;
+}
+button {
+	background: #00000020;
+	border: none;
+	border-radius: 4px;
+	padding: 2px;
+	font-size: 2rem;
+	user-select: none;
+}
+button:hover {
+	background: #888;
+}
+button:active {
+	background: #555;
+}
+button:disabled {
+	background: #333;
+	opacity: 80%;
+}
+
+.button {
+	background: #00000020;
+	border: none;
+	border-radius: 4px;
+	padding: 2px;
+	width: 40px;
+	height: 40px;
+	font-size: 2rem;
+	user-select: none;
+}
+.button_saveload {
+	background: #667;
+	border-left: 4px solid #778;
+	border-top: 2px solid #778;
+	border-radius: 8px;
+	margin-right: 4px;
+	padding: 4px;
+	font-size: 2rem;
+	user-select: none;
+}
+
+#text_load {
+	background: #1d1d1d;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 30px;
+	width: 100%;
+}
+
+.button_remove {
+	margin: 6px;
+	min-width: 40px;
+	min-height: 40px;
+	background-color: #00000010;
+	color: #ffffff50;
+}
+
+.textarea-grow {
+	/* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+	display: grid;
+	background: transparent;
+}
+.textarea-grow::after {
+	/* Note the weird space! Needed to preventy jumpy behavior */
+	content: attr(data-replicated-value) " ";
+	/* This is how textarea text behaves */
+	white-space: pre-wrap;
+	/* Hidden from view, clicks, and screen readers */
+	visibility: hidden;
+}
+.textarea-grow > textarea {
+	resize: none;
+	overflow: hidden;
+}
+.textarea-grow > textarea, .textarea-grow::after {
+	/* Identical styling required!! */
+	/* Place on top of each other */
+	grid-area: 1 / 1 / 2 / 2;
+}
+/* CUSTOM STYLE */
+.textarea-grow > textarea, .textarea-grow::after {
+	background: #11111100;
+	border: none;
+	margin: 0;
+	padding: 6px;
+	border-radius: 12px;
+	font-size: 2rem;
+	transition: background 0.3s;
+}
+
+/* textarea {
+} */
+textarea:hover {
+	background: #11111140;
+}
+textarea:focus {
+	background: #222;
+}
+a {
+	color: #eda;
+	font-weight: bold;
+	text-decoration: none;
+}
+a:hover {
+	color: #ba7;
+}
+
+.node {
+	background: #222229;
+	margin: 8px 0px 8px 0;
+	padding: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	box-shadow: #00002030 4px 4px 8px;
+	border-radius: 20px;
+	width: 100%;
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	border-top: 3px solid #3c3c49;
+	border-left: 12px solid #3c3c49;
+}
+
+.node_list {
+	background: transparent;
+}
+
+.node_0 {
+	background: #3c3c4d;
+	border-color: #6d6685;
+}
+.node_1 {
+	background: #493546;
+	border-color: #825564;
+}
+.node_2 {
+	background: #3f4357;
+	border-color: #5b728c;
+}
+.node_3 {
+	background: #5d5650;
+	border-color: #93846e;
+	margin: 0;
+}
+
+.textfield_0 {
+	color: #bcb2f5;
+}
+.textfield_1 {
+	color: #f99fa9;
+}
+.textfield_2 {
+	color: #9cb3da;
+}
+.textfield_3 {
+	color: #bcb3a4;
+}
+
+.horizontal_flex {
+	display: flex;
+	background-color: transparent;
+	width: 100%;
+}
+.subtitletext {
+	color: #ffffff20;
+	font-size: 2rem;
+	/* margin-left: auto; */
+	margin: 6px;
+	margin-left: auto;
+}
+.subtitledesc {
+	color:#ffffff40;
+	font-size: 1.3rem;
+}
+
+.main {
+	margin-top: 40px;
+}
+
+.grid-wrap-main {
+	width: 100vw;
+	/* min-height: 100vh; */
+	display: grid;
+	column-gap: 20px;
+	grid-template-columns: 50px auto 50px;
+}
