@@ -115,7 +115,7 @@ EAD.remove_children = function(def) {
 		child_def.node.remove();
 		def.children.splice(i, 1);
 		console.log(`removed ${child_def.id}`)
-		delete EAD.nodes[child_def.id];
+		EAD.nodes[child_def.id] = null;
 	}
 }
 
@@ -131,7 +131,7 @@ EAD.remove_child = function(def, child_def) {
 	EAD.remove_children(child_def);
 	child_def.node.remove();
 	child_def.removed = true;
-	delete EAD.nodes[child_def.id];
+	EAD.nodes[child_def.id] = null;
 }
 
 EAD.on_button_remove = function(id) {
