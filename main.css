@@ -16,7 +16,7 @@ body {
 	background: #222;
 }
 h1, h2, h3, h4 {
-	color: #ffffff88;
+	color: #bbb;
 }
 ul {
 	margin-left: 20px;
@@ -213,4 +213,24 @@ a:hover {
 	display: grid;
 	column-gap: 20px;
 	grid-template-columns: 50px auto 50px;
+}
+
+.no_select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.text-delta {
+	background-color: #333;
+	width: fit-content;
+	padding: 4px 8px 4px 8px;
+}
+.text-delta:hover {
+	background-color: #444;
+}
+.text-delta:active {
+	background-color: #111;
 }
