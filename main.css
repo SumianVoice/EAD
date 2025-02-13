@@ -70,12 +70,8 @@ button:disabled {
 	width: 100%;
 }
 
-.button_remove {
-	margin: 6px;
-	min-width: 40px;
-	min-height: 40px;
-	background-color: #00000010;
-	color: #ffffff50;
+textarea {
+	resize: vertical;
 }
 
 .textarea-grow {
@@ -105,10 +101,18 @@ button:disabled {
 	background: #11111100;
 	border: none;
 	margin: 0;
-	padding: 6px;
+	padding: 0 6px 0 6px;
 	border-radius: 12px;
 	font-size: 2rem;
 	transition: background 0.3s;
+}
+
+.button_remove {
+	margin: 0 6px 0 6px;
+	min-width: 40px;
+	min-height: 40px;
+	background-color: #00000010;
+	color: #ffffff50;
 }
 
 /* textarea {
@@ -167,9 +171,12 @@ a:hover {
 	border-color: #93846e;
 	margin: 0;
 }
+.node_3:nth-child(1) {
+	margin-top: 8px;
+}
 
 .textfield_0 {
-	color: #bcb2f5;
+	color: #b4b0c5;
 }
 .textfield_1 {
 	color: #f99fa9;
@@ -189,8 +196,6 @@ a:hover {
 .subtitletext {
 	color: #ffffff20;
 	font-size: 2rem;
-	/* margin-left: auto; */
-	margin: 6px;
 	margin-left: auto;
 }
 .subtitledesc {

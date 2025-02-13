@@ -22,11 +22,19 @@ EAD.nodes = {
 	'main':{
 		node:document.getElementById(`main`),
 		list:document.getElementById(`main_list`),
+		textarea:document.getElementById(`textarea_main`),
 		id:"main",
 		type:0,
 		children:[],
 	},
 };
+
+EAD.is_debug = false;
+
+EAD.log = function(text) {
+	if (!EAD.is_debug) {return;}
+	return console.log(text);
+}
 
 EAD.html_fragment_from_string = function(html_string) {
 	let frag = document.createDocumentFragment(),
@@ -90,7 +98,7 @@ EAD.add_node = function(parent_def, child_def) {
 	EAD.nodes[String(child_def.id)] = child_def;
 	parent_def.list.appendChild(child_def.node);
 	parent_def.children.push(child_def);
-	console.log(`added ${child_def.id}`)
+	EAD.log(`added ${child_def.id}`)
 }
 
 EAD.on_button_add = function(id) {
@@ -103,29 +111,30 @@ EAD.on_button_add = function(id) {
 }
 
 EAD.remove_children = function(def) {
-	console.log("remove_children")
+	EAD.log("remove_children")
 	if (def.children.length <= 0) {
-		console.log(`no children to remove for ${def.id}`)
+		EAD.log(`no children to remove for ${def.id}`)
 		return;
 	}
 	// if (def.removed) {return;}
-	for (i = def.children.length-1; i >= 0; i--) {
+	for (let i = def.children.length - 1; i >= 0; i--) {
+		EAD.log(`  ${def.textarea.value} ${i}`)
 		let child_def = def.children[i];
 		EAD.remove_children(child_def);
 		child_def.node.remove();
 		def.children.splice(i, 1);
-		console.log(`removed ${child_def.id}`)
+		EAD.log(`removed ${child_def.id}`)
 		EAD.nodes[child_def.id] = null;
 	}
 }
 
 EAD.remove_child = function(def, child_def) {
-	console.log("remove_child")
+	EAD.log("remove_child")
 	if (def.children.length <= 0) {return;}
-	for (i = 0; i < def.children.length; i++) {
+	for (let i = 0; i < def.children.length; i++) {
 		if (def.children[i].id == child_def.id) {
 			def.children.splice(i, 1);
-			console.log("remove through remove_child")
+			EAD.log("remove through remove_child")
 		}
 	}
 	EAD.remove_children(child_def);
@@ -142,7 +151,8 @@ EAD.on_button_remove = function(id) {
 }
 
 EAD.collapse_into_savable = function(def, iter) {
-	let text = "$main";
+	EAD.log(`PROCESSING "${def.textarea.value}" START`)
+	let text = "NONE";
 	if (def.textarea != null) {
 		text = String(def.textarea.value);
 	}
@@ -150,19 +160,21 @@ EAD.collapse_into_savable = function(def, iter) {
 		text,
 	];
 	if (def.children.length <= 0) {
-		// console.log("NO CHILDREN, RETURNING")
 		return t;
 	}
-	for (i = 0; i < def.children.length; i++) {
+	EAD.log(`CHILD "${def.textarea.value}" HAS ${def.children.length} CHILDREN`)
+	for (let i = 0; i < def.children.length; i++) {
+		EAD.log("    LOOP ITER")
 		let child_def = def.children[i];
 		if (child_def.removed) {
-			child_def.child_def
+			EAD.log(`CHILD "${def.textarea.value}" IS ALREADY REMOVED`)
 			continue;
 		}
 		iter += 1;
-		if (iter > 100) {return t;}
+		if (iter > 100) {EAD.log("TOO MANY ITERATIONS"); return t;}
 		t.push(EAD.collapse_into_savable(child_def, iter));
 	}
+	EAD.log(`CHILD "${def.textarea.value}" FINISHED`)
 	return t;
 }
 
@@ -170,40 +182,41 @@ EAD.serialise_all = function() {
 	let savable = EAD.collapse_into_savable(EAD.nodes["main"], 0);
 	// let str = JSON.stringify(savable, null, "	");
 	let str = JSON.stringify(savable);
-	console.log(str);
+	EAD.log(str);
 	return str;
 }
 
 EAD.deserialise_data_node = function(data, host_def) {
 	if (data.length <= 0) {return;}
-
-	// add the node itself
+	let def;
 	if (host_def == null) {
 		host_def = EAD.nodes["main"];
+		host_def.textarea.value = data[0];
+		def = host_def;
 	}
-	let def;
-	if (data[0] != "$main") {
+	if (def == null) {
+		EAD.log(`CREATING NODE FOR ${data[0]}`)
 		def = EAD.create_node(host_def.type + 1, host_def);
 		def.textarea.value = data[0];
 	}
 
 	if (data.length <= 1) {return;}
-	for (i = 1; i < data.length; i++) {
+	for (let i = 1; i < data.length; i++) {
 		EAD.deserialise_data_node(data[i], def);
 	}
 }
 
 EAD.deserialise_all = function(str) {
-	console.log(`===========================\n\n`)
+	EAD.log(`===========================\n\n`)
 	EAD.remove_children(EAD.nodes["main"]);
-	console.log(EAD.nodes)
+	EAD.log(EAD.nodes)
 	let data;
 	try {
 		data = JSON.parse(str);
 		EAD.deserialise_data_node(data);
 	}
 	catch(err) {
-		console.log(err.message);
+		EAD.log(err.message);
 		return;
 	}
 }
@@ -216,5 +229,5 @@ EAD.load = function() {
 	EAD.deserialise_all(EAD.text_load.value);
 }
 
-
+EAD.nodes["main"].textarea.value = `EAD DESIGN SYSTEM`;
 
