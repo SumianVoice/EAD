@@ -46,16 +46,18 @@ EAD.html_fragment_from_string = function(html_string) {
 	return frag;
 }
 
-EAD.create_node = function(type, host) {
+EAD.create_node = function(type, host, value) {
 	let t = [];
+	if (value == null) {value = ""}
 	EAD.cur_id += 1;
 	let id = EAD.cur_id;
 	t.push(`<div class="node node_${type}" id="${id}">`);
 	// horizontal elements
 	t.push(`<div class="horizontal_flex">`);
-		t.push(`<div class="textarea-grow">`);
+		// allows textarea to 'grow' with more lines
+		t.push(`<div class="textarea-grow" id="grow_${id}">`);
 			t.push(`<textarea onInput="this.parentNode.dataset.replicatedValue=this.value" \
-			class="textfield_${type}" id="textarea_${id}" name="name" spellcheck="false" rows="1" cols="800"></textarea>`);
+			class="textfield_${type}" id="textarea_${id}" name="name" spellcheck="false" rows="1" cols="800">${value}</textarea>`);
 		t.push(`</div>`);
 
 		t.push(`<button class="button button_remove" type="button" name="button" onclick="EAD.on_button_remove('${id}')">-</button>`);
@@ -90,6 +92,9 @@ EAD.create_node = function(type, host) {
 	EAD.add_node(host, def);
 	def.node = document.getElementById(`${id}`);
 	def.textarea = document.getElementById(`textarea_${id}`);
+	// also add the text to the "spacer" node to make textarea big enough for any newlines
+	def.grow = document.getElementById(`grow_${id}`);
+	def.grow.dataset.replicatedValue = value
 	def.list = document.getElementById(`list_${id}`);
 	return def;
 };
@@ -171,7 +176,7 @@ EAD.collapse_into_savable = function(def, iter) {
 			continue;
 		}
 		iter += 1;
-		if (iter > 100) {EAD.log("TOO MANY ITERATIONS"); return t;}
+		if (iter > 1000) {EAD.log("TOO MANY ITERATIONS"); return t;}
 		t.push(EAD.collapse_into_savable(child_def, iter));
 	}
 	EAD.log(`CHILD "${def.textarea.value}" FINISHED`)
@@ -196,8 +201,7 @@ EAD.deserialise_data_node = function(data, host_def) {
 	}
 	if (def == null) {
 		EAD.log(`CREATING NODE FOR ${data[0]}`)
-		def = EAD.create_node(host_def.type + 1, host_def);
-		def.textarea.value = data[0];
+		def = EAD.create_node(host_def.type + 1, host_def, data[0]);
 	}
 
 	if (data.length <= 1) {return;}
