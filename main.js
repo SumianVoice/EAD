@@ -92,6 +92,7 @@ EAD.create_node = function(type, host, value) {
 	EAD.add_node(host, def);
 	def.node = document.getElementById(`${id}`);
 	def.textarea = document.getElementById(`textarea_${id}`);
+	def.textarea.focus()
 	// also add the text to the "spacer" node to make textarea big enough for any newlines
 	def.grow = document.getElementById(`grow_${id}`);
 	def.grow.dataset.replicatedValue = value
