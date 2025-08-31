@@ -29,6 +29,14 @@ EAD.nodes = {
 	},
 };
 
+EAD.go_to_url_tag = function() {
+    const vars = decodeURI(window.location.href).match(/\?(load\=).*/gi);
+    if (vars) {
+		const st = vars.join().slice(6)
+		EAD.deserialise_all(st)
+    }
+};
+
 EAD.is_debug = false;
 
 EAD.log = function(text) {
@@ -236,3 +244,4 @@ EAD.load = function() {
 
 EAD.nodes["main"].textarea.value = `EAD DESIGN SYSTEM`;
 
+EAD.go_to_url_tag()
