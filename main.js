@@ -5,6 +5,8 @@ EAD = {};
 
 EAD.root = document.getElementById("main");
 EAD.text_load = document.getElementById("text_load");
+EAD.text_markdown = document.getElementById("text_markdown");
+EAD.text_plain = document.getElementById("text_plain");
 EAD.cur_id = 1;
 EAD.node_type_names = [
 	"",
@@ -192,12 +194,71 @@ EAD.collapse_into_savable = function(def, iter) {
 	return t;
 }
 
-EAD.serialise_all = function() {
+EAD.serialise_all = function(sep) {
 	let savable = EAD.collapse_into_savable(EAD.nodes["main"], 0);
-	// let str = JSON.stringify(savable, null, "	");
-	let str = JSON.stringify(savable);
-	EAD.log(str);
-	return str;
+	let t = JSON.stringify(savable, null, sep);
+	EAD.log(t);
+	return t;
+}
+
+EAD.fix_newlines = function(text, prefix, suffix) {
+	if (prefix == null) {prefix = "\n";}
+	if (suffix == null) {suffix = "";}
+	let t = text.split("\n");
+	for (let i = 0; i < t.length; i++) {
+		if (i > 0) {t[i] = prefix + t[i];}
+		if (i < t.length - 1) {t[i] = t[i] + suffix;}
+	}
+	return t.join("")
+}
+
+EAD.to_markdown = function() {
+	let savable = EAD.collapse_into_savable(EAD.nodes["main"], 0);
+	let t = [];
+	t.push("# ");
+	t.push(savable[0]);
+	t.push("\n\n");
+	for (let i1 = 1; i1 < savable.length; i1++) {
+		const c1 = savable[i1]
+		t.push("## ");
+		t.push(EAD.fix_newlines(c1[0]));
+		t.push("\n\n");
+		for (let i2 = 1; i2 < c1.length; i2++) {
+			const c2 = c1[i2];
+			t.push(String(i2) + ". **");
+			t.push(EAD.fix_newlines(c2[0]));
+			t.push("**\n");
+			for (let i3 = 1; i3 < c2.length; i3++) {
+				const child = c2[i3];
+				t.push("\n> ");
+				t.push(EAD.fix_newlines(child[0], "\n> ", "\n>"));
+				t.push("\n");
+			}
+		}
+	}
+	return t.join("");
+}
+
+EAD.to_plaintext = function() {
+	let savable = EAD.collapse_into_savable(EAD.nodes["main"], 0);
+	let t = [];
+	t.push(savable[0]);
+	for (let i1 = 1; i1 < savable.length; i1++) {
+		const c1 = savable[i1]
+		t.push("\n  The game will be enjoyable because the player will experience a sense of [");
+		t.push(c1[0]);
+		t.push("].\n");
+		for (let i2 = 1; i2 < c1.length; i2++) {
+			const c2 = c1[i2];
+			t.push("    " + c2[0] + " will be done by players feel a sense of " + c1[0] + " because:\n");
+			for (let i3 = 1; i3 < c2.length; i3++) {
+				const child = c2[i3];
+				t.push("      - " + EAD.fix_newlines(child[0], "        ", "\n"));
+				t.push("\n");
+			}
+		}
+	}
+	return t.join("");
 }
 
 EAD.deserialise_data_node = function(data, host_def) {
@@ -235,8 +296,20 @@ EAD.deserialise_all = function(str) {
 }
 
 EAD.save = function() {
-	EAD.text_load.value = "";
 	EAD.text_load.value = EAD.serialise_all();
+	EAD.save_markdown();
+	EAD.save_plaintext();
+}
+EAD.save_editable = function() {
+	EAD.text_load.value = EAD.serialise_all("	");
+	EAD.save_markdown();
+	EAD.save_plaintext();
+}
+EAD.save_markdown = function() {
+	EAD.text_markdown.value = EAD.to_markdown();
+}
+EAD.save_plaintext = function() {
+	EAD.text_plain.value = EAD.to_plaintext();
 }
 EAD.load = function() {
 	EAD.deserialise_all(EAD.text_load.value);

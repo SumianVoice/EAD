@@ -25,11 +25,22 @@
 				<div class="horizontal_flex">
 					<button class="button_saveload" id="button_save" type="button" name="button" onclick="EAD.save()">save</button>
 					<button class="button_saveload" id="button_load" type="button" name="button" onclick="EAD.load()">load</button>
+					<button class="button_saveload" id="button_save_editable" type="button" name="button" onclick="EAD.save_editable()">save editable</button>
 					<p class="subtitledesc" style="font-size: 1rem; margin-top: 1rem;">Sumianvoice 2025</p>
 				</div>
+				<br>
+				<p>JSON save/load:</p>
 				<textarea name="text_load" id="text_load" cols="800" rows="10">
 ["Typical Platformer",["Skill Mastery",["Platforming",["obstacles increase in difficulty as the game progresses"],
 ["the goal is always in a certain direction e.g. right"]]]]</textarea>
+				<br>
+				<br>
+				<p>Markdown output:</p>
+				<textarea name="text_md" id="text_markdown" cols="800" rows="10"></textarea>
+				<br>
+				<br>
+				<p>Plaintext output:</p>
+				<textarea name="text_plain" id="text_plain" cols="800" rows="10"></textarea>
 				<details closed=""><summary class="text-delta no_select">show help</summary>
 				<div style="max-width: 1000px; margin-bottom: 200px;">
 					<h1>How to use</h1>
@@ -53,6 +64,10 @@
 					- Sumi</p>
 				</div>
 				</details>
+				<br>
+				<br>
+				<br>
+				<br>
 			</div>
 			<div></div>
 		</div>
