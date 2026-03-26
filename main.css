@@ -40,9 +40,9 @@ button:disabled {
 	opacity: 80%;
 }
 
-#button_save_editable, #button_save_markdown {
-	height: 30px;
-	font-size: 1rem;
+#button_save_editable {
+	height: 30px !important; 
+	font-size: 1rem !important;
 }
 
 .button {
@@ -66,7 +66,7 @@ button:disabled {
 	user-select: none;
 }
 
-#text_load, #text_markdown, #text_plain {
+.textarea_standard {
 	background: #131313;
 	padding: 10px;
 	border: none;
