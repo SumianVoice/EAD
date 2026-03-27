@@ -65,7 +65,7 @@ EAD.create_node = function(type, host, value) {
 	// horizontal elements
 	t.push(`<div class="horizontal_flex">`);
 		// allows textarea to 'grow' with more lines
-		t.push(`<div class="textarea-grow" id="grow_${id}">`);
+		t.push(`<div class="textarea_grow" id="grow_${id}">`);
 			t.push(`<textarea onInput="this.parentNode.dataset.replicatedValue=this.value" \
 			class="textfield_${type}" id="textarea_${id}" name="name" spellcheck="false" rows="1" cols="800">${value}</textarea>`);
 		t.push(`</div>`);

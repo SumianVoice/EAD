@@ -49,12 +49,33 @@ button:disabled {
 	background: #00000020;
 	border: none;
 	border-radius: 4px;
-	padding: 2px;
-	width: 40px;
-	height: 40px;
+	padding: 1px;
+	width: 36px;
+	height: 36px;
 	font-size: 2rem;
 	user-select: none;
 }
+
+.button_remove {
+	margin: 0px 6px 0px 6px;
+	/* padding: 0px 0px 0px 0px; */
+	width: 36px;
+	height: 36px;
+	min-width: 36px;
+	min-height: 36px;
+	font-size: 2rem;
+	background-color: #00000015;
+	color: #ffffff50;
+}
+
+.node_3 .button_remove {
+	width: 28px;
+	height: 28px;
+	min-width: 28px;
+	min-height: 28px;
+	font-size: 1.5rem;
+}
+
 .button_saveload {
 	background: #333;
 	border-left: 4px solid #444;
@@ -80,12 +101,13 @@ textarea {
 	resize: vertical;
 }
 
-.textarea-grow {
+.textarea_grow {
 	/* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
 	display: grid;
 	background: transparent;
+	margin: 0px;
 }
-.textarea-grow::after {
+.textarea_grow::after {
 	/* Note the weird space! Needed to preventy jumpy behavior */
 	content: attr(data-replicated-value) " ";
 	/* This is how textarea text behaves */
@@ -93,32 +115,23 @@ textarea {
 	/* Hidden from view, clicks, and screen readers */
 	visibility: hidden;
 }
-.textarea-grow > textarea {
+.textarea_grow > textarea {
 	resize: none;
 	overflow: hidden;
 }
-.textarea-grow > textarea, .textarea-grow::after {
+.textarea_grow > textarea, .textarea_grow::after {
 	/* Identical styling required!! */
 	/* Place on top of each other */
 	grid-area: 1 / 1 / 2 / 2;
 }
 /* CUSTOM STYLE */
-.textarea-grow > textarea, .textarea-grow::after {
+.textarea_grow > textarea, .textarea_grow::after {
 	background: #11111100;
 	border: none;
-	margin: 0;
 	padding: 0 6px 0 6px;
 	border-radius: 12px;
 	font-size: 2rem;
 	transition: background-color 0.1s;
-}
-
-.button_remove {
-	margin: 0 6px 0 6px;
-	min-width: 40px;
-	min-height: 40px;
-	background-color: #00000010;
-	color: #ffffff50;
 }
 
 /* textarea {
@@ -141,7 +154,7 @@ a:hover {
 .node {
 	background: #33333b;
 	margin: 8px 0px 8px 0;
-	padding: 3px;
+	padding: 4px;
 	padding-left: 10px;
 	padding-right: 10px;
 	box-shadow: #00002030 4px 4px 8px;
@@ -180,6 +193,12 @@ a:hover {
 .node_3:nth-child(1) {
 	margin-top: 8px;
 }
+.node_3:last-child {
+	margin-bottom: 8px;
+}
+.node_3 textarea, .node_3 .textarea_grow::after {
+	font-size: 1.5rem;
+}
 
 .textfield_0 {
 	color: #b4b0c5;
@@ -198,11 +217,16 @@ a:hover {
 	display: flex;
 	background-color: transparent;
 	width: 100%;
-	align-items: end;
+	align-items: start;
+}
+.node_3 .subtitletext {
+	color: #ffffff20;
+	font-size: 1.5rem;
+	margin-left: auto;
 }
 .subtitletext {
 	color: #ffffff20;
-	font-size: 2rem;
+	font-size: 1.9rem;
 	margin-left: auto;
 }
 .subtitledesc {
